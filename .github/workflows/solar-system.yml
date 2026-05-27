@@ -19,6 +19,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: Cache NPM Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: '${{ runner.os }}--node-modules-${{ hashFiles(''package-lock.json'') }}'
 
       - name: Setup NodeJS Version
         uses: actions/setup-node@v4
@@ -63,6 +68,7 @@ jobs:
         run: npm run coverage
       
       - name: Upload Artifact
+        needs: Install Dependencies
         if: always()
         uses: actions/upload-artifact@v4
         with:
