@@ -68,7 +68,6 @@ jobs:
         run: npm run coverage
       
       - name: Upload Artifact
-        needs: 
         if: always()
         uses: actions/upload-artifact@v4
         with:
